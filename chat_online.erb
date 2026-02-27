@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Online</title>
+</head>
+
+<body>
+
+<h2>💬 Chat Online</h2>
+
+<div id="chat" style="border:1px solid black; height:300px; overflow:auto;"></div>
+
+<form action="/enviar" method="post">
+  <input type="text" name="mensagem" placeholder="Digite sua mensagem" required>
+  <button type="submit">Enviar</button>
+</form>
+
+<script>
+function carregarMensagens() {
+  fetch('/mensagens')
+    .then(res => res.json())
+    .then(data => {
+      let chat = document.getElementById('chat');
+      chat.innerHTML = '';
+      data.forEach(msg => {
+        chat.innerHTML += '<p>' + msg + '</p>';
+      });
+    });
+}
+
+setInterval(carregarMensagens, 2000);
+carregarMensagens();
+</script>
+
+</body>
+</html>
